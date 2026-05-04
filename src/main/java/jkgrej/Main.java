@@ -20,6 +20,8 @@ public class Main {
         String baseUrl = "http://10.151.168.5:3115/";
         Scanner tb = new Scanner(System.in);
         int input;
+        ArrayList<books> books = new ArrayList<books>();
+        ArrayList<magazines> magazines = new ArrayList<magazines>();
 
         System.out.println("Welcome to the library System\nWhat would you like to do?");
        
@@ -61,14 +63,14 @@ public class Main {
         }
         catch(UnirestException e)
         {
-            System.out.println("Fel vid inläsning"+ e.getLocalizedMessage());
+            System.out.println("Error when reading"+ e.getLocalizedMessage());
             return;
         }
 
         int status_books = all_book_response.getStatus();
         if( status_books != 200 || status_books != 204)
         {
-            System.out.println("Statuskod: " + status_books + "serverfel");
+            System.out.println("Statuscode: " + status_books + "serverissue");
         }
 
 
@@ -77,20 +79,20 @@ public class Main {
         try
         {
             Files.writeString(Paths.get("books.json"), get_bookBody);
-            System.out.println("Data sparad till json");
+            System.out.println("Data saved to books.json");
         }
         catch(IOException e)
         {
-            System.out.println("Filfel: " + e.getMessage());
+            System.out.println("Fileissue: " + e.getMessage());
         }
 
         Type bookType = new TypeToken<ArrayList<Books>>(){}.getType();
-        ArrayList<books> bookList = gson.fromJson(get_bookBody, bookType);
+        books = gson.fromJson(get_bookBody, bookType);
 
         System.out.println("booklist created");
     }
 
-       if(input == 2)
+       else if(input == 2)
        {
             try 
             {
@@ -98,13 +100,44 @@ public class Main {
             } 
             catch (UnirestException e) 
             {
-                System.out.println("Fel på inläsning: " + e.getLocalizedMessage());
+                System.out.println("error when reading in: " + e.getLocalizedMessage());
                 return;
             }
 
             int magazineStatus = all_magazineResponse.getStatus();
+                    
+            if( magazineStatus != 200 || magazineStatus != 204)
+            {
+                System.out.println("Statuscode: " + magazineStatus + "serverissue");
+            }
+
+            String magazineBody = all_magazineResponse.getBody();
+
+            try 
+            {
+                Files.writeString(Paths.get("magazine.json"), magazineBody);
+                System.out.println("Data saved in magazine.json");
+            } 
+            catch (IOException e) 
+            {
+                System.out.println("file Error: " + e.getMessage());
+            }
+
+            Type magazineType = new TypeToken<ArrayList<magazines>>(){}.getType();
+            magazines = gson.fromJson(magazineBody, magazineType);
+
+            System.out.println("magazine list created");
+
+
        }
 
+       else if(input == 3)
+       {
+            for (books b : books) 
+            {
+                System.out.println(b.toString());
+            }
+       }
        
     }
 }
