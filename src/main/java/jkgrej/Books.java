@@ -1,12 +1,12 @@
 package jkgrej;
 
-public class Books extends Litterature {
+public class books extends Litterature {
     
     private String author;
     private String genre;
     private int pages;
 
-    public Books(int id, String title, boolean isAvailable, String author, String genre, int pages)
+    public books(int id, String title, boolean isAvailable, String author, String genre, int pages)
     {
         super(id, title, isAvailable);
         this.author = author;
