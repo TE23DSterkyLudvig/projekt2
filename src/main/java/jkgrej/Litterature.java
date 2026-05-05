@@ -10,9 +10,15 @@ public abstract class Litterature implements Comparable<Litterature>{
 
     public Litterature(int id, String title, boolean isAvailable)
     {
-        this.id = id;
+        this.id = 0;
         this.title = title;
         this.isAvailable = true;
+    }
+
+
+    public Litterature()
+    {
+
     }
 
 

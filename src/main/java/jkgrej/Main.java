@@ -20,13 +20,16 @@ public class Main {
         String baseUrl = "http://10.151.168.5:3115/";
         Scanner tb = new Scanner(System.in);
         int input;
-        ArrayList<books> books = new ArrayList<books>();
-        ArrayList<magazines> magazines = new ArrayList<magazines>();
+        ArrayList<books> books = new ArrayList<>();
+        ArrayList<magazines> magazines = new ArrayList<>();
 
-        System.out.println("Welcome to the library System\nWhat would you like to do?");
+        while (true) {
+            
+        
+            System.out.println("Welcome to the library System\nWhat would you like to do?");
        
 
-        while(true)
+            while(true)
         {
             try 
             { 
@@ -52,92 +55,119 @@ public class Main {
         
 
 
-        HttpResponse<String> all_book_response;
-        HttpResponse<String> all_magazineResponse;
+            HttpResponse<String> all_book_response;
+            HttpResponse<String> all_magazineResponse;
 
-       if(input == 1){
+            if(input == 1){
         //Hämtar innehållet i Books
-        try
-        {
-            all_book_response = Unirest.get(baseUrl+ "books").asString();
-        }
-        catch(UnirestException e)
-        {
-            System.out.println("Error when reading"+ e.getLocalizedMessage());
-            return;
-        }
-
-        int status_books = all_book_response.getStatus();
-        if( status_books != 200 || status_books != 204)
-        {
-            System.out.println("Statuscode: " + status_books + "serverissue");
-        }
-
-
-        String get_bookBody = all_book_response.getBody();
-
-        try
-        {
-            Files.writeString(Paths.get("books.json"), get_bookBody);
-            System.out.println("Data saved to books.json");
-        }
-        catch(IOException e)
-        {
-            System.out.println("Fileissue: " + e.getMessage());
-        }
-
-        Type bookType = new TypeToken<ArrayList<Books>>(){}.getType();
-        books = gson.fromJson(get_bookBody, bookType);
-
-        System.out.println("booklist created");
-    }
-
-       else if(input == 2)
-       {
-            try 
+            try
             {
-                all_magazineResponse = Unirest.get(baseUrl + "magazines").asString();
-            } 
-            catch (UnirestException e) 
+                all_book_response = Unirest.get(baseUrl+ "books").asString();
+            }
+            catch(UnirestException e)
             {
-                System.out.println("error when reading in: " + e.getLocalizedMessage());
+                System.out.println("Error when reading"+ e.getLocalizedMessage());
                 return;
             }
 
-            int magazineStatus = all_magazineResponse.getStatus();
-                    
-            if( magazineStatus != 200 || magazineStatus != 204)
+            int status_books = all_book_response.getStatus();
+            if( status_books != 200 || status_books != 204)
             {
-                System.out.println("Statuscode: " + magazineStatus + "serverissue");
+                System.out.println("Statuscode: " + status_books + "serverissue");
             }
 
-            String magazineBody = all_magazineResponse.getBody();
 
-            try 
+            String get_bookBody = all_book_response.getBody();
+
+            try
             {
-                Files.writeString(Paths.get("magazine.json"), magazineBody);
-                System.out.println("Data saved in magazine.json");
-            } 
-            catch (IOException e) 
+                Files.writeString(Paths.get("books.json"), get_bookBody);
+                System.out.println("Data saved to books.json");
+            }
+            catch(IOException e)
             {
-                System.out.println("file Error: " + e.getMessage());
+                System.out.println("Fileissue: " + e.getMessage());
             }
 
-            Type magazineType = new TypeToken<ArrayList<magazines>>(){}.getType();
-            magazines = gson.fromJson(magazineBody, magazineType);
+            Type bookType = new TypeToken<ArrayList<Books>>(){}.getType();
+            books = gson.fromJson(get_bookBody, bookType);
 
-            System.out.println("magazine list created");
+            System.out.println("booklist created");
+    }
+
+            else if(input == 2)
+            {
+                try 
+                {
+                    all_magazineResponse = Unirest.get(baseUrl + "magazines").asString();
+                } 
+                catch (UnirestException e) 
+                {
+                    System.out.println("error when reading in: " + e.getLocalizedMessage());
+                    return;
+                }
+
+                int magazineStatus = all_magazineResponse.getStatus();
+                        
+                if( magazineStatus != 200 || magazineStatus != 204)
+                {
+                    System.out.println("Statuscode: " + magazineStatus + "serverissue");
+                }
+
+                String magazineBody = all_magazineResponse.getBody();
+
+                try 
+                {
+                    Files.writeString(Paths.get("magazine.json"), magazineBody);
+                    System.out.println("Data saved in magazine.json");
+                } 
+                catch (IOException e) 
+                {
+                    System.out.println("file Error: " + e.getMessage());
+                }
+
+                Type magazineType = new TypeToken<ArrayList<magazines>>(){}.getType();
+                magazines = gson.fromJson(magazineBody, magazineType);
+
+                System.out.println("magazine list created");
 
 
        }
 
-       else if(input == 3)
-       {
-            for (books b : books) 
+            else if(input == 3)
             {
-                System.out.println(b.toString());
+                for (books b : books) 
+                {
+                    System.out.println(b.toString());
+                }
             }
-       }
+        
+            else if(input == 4)
+            {
+                for (magazines m: magazines) 
+                {
+                    System.out.println(m.toString());
+                }
+            }
+      
+      
+        }
+       
+
        
     }
+
+    public void addBook(Scanner tb)
+    {
+        
+        try 
+        {
+            
+        } 
+        catch (Exception e) 
+        {
+        
+        }
+    }
+
 }

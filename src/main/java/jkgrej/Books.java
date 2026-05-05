@@ -14,6 +14,11 @@ public class books extends Litterature {
         this.pages = pages;
     }
 
+    public books()
+    {
+
+    }
+
     public String getAuthor() {
         return this.author;
     }

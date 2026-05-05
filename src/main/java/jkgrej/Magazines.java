@@ -14,6 +14,11 @@ public class magazines extends Litterature{
         this.publishedYear = publishedYear;
     }
 
+    public magazines()
+    {
+        
+    }
+
     public int getIssueNumber() {
         return this.issueNumber;
     }
