@@ -20,8 +20,21 @@ public class Main {
         String baseUrl = "http://10.151.168.5:3115/";
         Scanner tb = new Scanner(System.in);
         int input;
-        ArrayList<books> books = new ArrayList<>();
-        ArrayList<magazines> magazines = new ArrayList<>();
+        ArrayList<Books> books = new ArrayList<>();
+        ArrayList<Magazines> magazines = new ArrayList<>();
+
+ 
+        String title = "";
+        boolean isAvailable;
+
+        String author = "";
+        String genre = "";
+        int pages = 0;
+
+        int issueNumber = 0;
+        String category = "";
+        int publishedYear = 0;
+
 
         while (true) {
             
@@ -39,6 +52,7 @@ public class Main {
                 if(input > 7 || input< 1)
                 {
                     System.out.println("Not bigger than 7 or smaller than 1");
+                    tb.nextLine();
                     continue;
                 }
                 else
@@ -126,7 +140,7 @@ public class Main {
                     System.out.println("file Error: " + e.getMessage());
                 }
 
-                Type magazineType = new TypeToken<ArrayList<magazines>>(){}.getType();
+                Type magazineType = new TypeToken<ArrayList<Magazines>>(){}.getType();
                 magazines = gson.fromJson(magazineBody, magazineType);
 
                 System.out.println("magazine list created");
@@ -136,7 +150,7 @@ public class Main {
 
             else if(input == 3)
             {
-                for (books b : books) 
+                for (Books b : books) 
                 {
                     System.out.println(b.toString());
                 }
@@ -144,30 +158,84 @@ public class Main {
         
             else if(input == 4)
             {
-                for (magazines m: magazines) 
+                for (Magazines m: magazines) 
                 {
                     System.out.println(m.toString());
                 }
             }
       
-      
+            else if(input == 5)
+            {
+                System.out.println("You chose to add a book!");
+
+                pages = chooseInt(pages, 800 , 100, tb );
+                author = chooseString(author, tb);
+                genre = chooseString()
+
+
+
+            }
         }
        
 
        
     }
+        public static int chooseInt(int value, int maxValue, int minValue, Scanner tb)
+        {
+            while(true){
+                try 
+                {
+                    System.out.println("Enter value!");  
+                    value = tb.nextInt();
 
-    public void addBook(Scanner tb)
-    {
-        
-        try 
+                    if(value > maxValue || value < minValue)
+                    {
+                        System.out.println("Value cant be bigger than "+ maxValue + " or smaller than " + minValue);
+                        tb.nextLine();
+                        continue;
+                    }
+                    else
+                    {
+                        return value;
+                    }
+                } 
+                catch (Exception e) 
+                {
+                    System.out.println("Only numbers: " + e.getMessage());
+                    tb.nextLine();
+                    continue;
+                }
+            }
+        }
+
+        public static String chooseString(String value, Scanner tb)
         {
             
-        } 
-        catch (Exception e) 
-        {
-        
+
+            while (true) 
+            {
+                try 
+                {
+                    System.out.println("Write your answer!");
+                    value = tb.nextLine();
+                    Integer.parseInt(value);
+                
+                } 
+                catch (Exception e) 
+                {
+                    if(value == null || value.trim().isEmpty() )
+                    {
+                        System.out.println("Answer cant be empty or be empty space");
+                        tb.nextLine();
+                        continue;
+                    }
+                    else
+                    {
+                     return value;   
+                    }   
+                }
+
+            }
         }
-    }
 
 }

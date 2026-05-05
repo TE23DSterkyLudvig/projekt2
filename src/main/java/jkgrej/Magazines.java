@@ -1,12 +1,12 @@
 package jkgrej;
 
-public class magazines extends Litterature{
+public class Magazines extends Litterature{
 
     private int issueNumber;
     private String category;
     private int publishedYear;
 
-    public magazines(int id, String title, boolean isAvailable, int issueNumber, String category, int publishedYear)
+    public Magazines(int id, String title, boolean isAvailable, int issueNumber, String category, int publishedYear)
     {
         super(id, title, isAvailable);
         this.issueNumber = issueNumber;
@@ -14,9 +14,9 @@ public class magazines extends Litterature{
         this.publishedYear = publishedYear;
     }
 
-    public magazines()
+    public Magazines()
     {
-        
+
     }
 
     public int getIssueNumber() {
