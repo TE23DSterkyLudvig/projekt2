@@ -74,7 +74,7 @@ public class Main {
 
             HttpResponse<String> all_book_response;
             HttpResponse<String> all_magazineResponse;
-
+            // all different actions
             if(input == 1){
         //Hämtar innehållet i Books
             try
@@ -218,6 +218,8 @@ public class Main {
 
        
     }
+        // makes it possible to check ints, string and booleans.
+
         public static int chooseInt(int value, int maxValue, int minValue, Scanner tb)
         {
             while(true){

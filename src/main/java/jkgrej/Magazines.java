@@ -1,5 +1,10 @@
 package jkgrej;
 
+// This class handles the actual magazine objects. It takes the variables from 
+// Litterature (id, title, isAvailable) and adds the specific elementents such as the issuenumber, 
+// the category, and its release year. As well as this, the class also contains toString, to write all elements,
+// as well as Setter/getter to change or get varible from the books objects.
+
 public class Magazines extends Litterature{
 
     private int issueNumber;

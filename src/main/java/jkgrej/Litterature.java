@@ -1,5 +1,11 @@
 package jkgrej;
 
+//This is the abstract parent class named Litterature, which has two extending subclasses, Books and Magazines,
+// which implement the methods and variables present in Litterature. This class also contains toString,
+// which makes it possible to showcase all elements as well as Setters/getters to change or get variables present in objects.
+// It also contains compareTo, which makes it possible to sort lists using the collections.sort command.
+// it also contains equals and hashcode, which makes hashset commands available.
+
 import java.util.Objects;
 
 public abstract class Litterature implements Comparable<Litterature>{
