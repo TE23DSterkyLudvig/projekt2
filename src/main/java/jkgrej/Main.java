@@ -20,6 +20,7 @@ public class Main {
         String baseUrl = "http://10.151.168.5:3115/";
         Scanner tb = new Scanner(System.in);
         int input;
+        String inputString = "";
         ArrayList<Books> books = new ArrayList<>();
         ArrayList<Magazines> magazines = new ArrayList<>();
 
@@ -38,7 +39,7 @@ public class Main {
 
         while (true) {
             
-        
+            System.out.println("----------------------------------------------");
             System.out.println("Welcome to the library System\nWhat would you like to do?");
        
 
@@ -48,6 +49,7 @@ public class Main {
             { 
                 System.out.println("1.Get all books \n2.get all magazines \n3.Write all books \n4.Write all magazines \n5.Add book \n6.Add magazine \n7.close program");
                 input = tb.nextInt();
+                tb.nextLine();
                 
                 if(input > 7 || input< 1)
                 {
@@ -63,6 +65,7 @@ public class Main {
             catch (Exception e) 
             {
                 System.out.println("Error, no string: " + e.getMessage());
+                tb.nextLine();
                 continue;
             }
         }
@@ -168,12 +171,47 @@ public class Main {
             {
                 System.out.println("You chose to add a book!");
 
+                System.out.println("Define pages from 100 to 800");
                 pages = chooseInt(pages, 800 , 100, tb );
+                System.out.println("Define author");
                 author = chooseString(author, tb);
-                genre = chooseString()
+                System.out.println("Define genre");
+                genre = chooseString(genre, tb);
+                System.out.println("Define title");
+                title = chooseString(title,tb);
+                isAvailable = choosBoolean(null, inputString, tb);
 
+                books.add(new Books(0, title, isAvailable, author, genre, pages));
+                System.out.println("added new book object.");
+                
+                
+            }
+        
+            else if(input == 6)
+            {
+                System.out.println("Your chose to add a magazine.");
 
+                System.out.println("Define title");
+                title = chooseString(title, tb);
+                
+                isAvailable = choosBoolean(null, inputString, tb);
+                System.out.println("Define issuenumber from 1 to 1723");
+                issueNumber = chooseInt(issueNumber,1723,1,tb);
+                System.out.println("Define category");
+                category = chooseString(category, tb);
+                System.out.println("Define publishedyear from 1923 to 2026");
+                publishedYear = chooseInt(publishedYear, 2026, 1923, tb);
 
+                magazines.add(new Magazines(0, title, isAvailable, issueNumber, category, publishedYear));
+                System.out.println("added magazine object.");
+
+            }
+        
+            else if(input == 7)
+            {
+                System.out.println("Closing program");
+                tb.close();
+                System.exit(0);
             }
         }
        
@@ -187,6 +225,7 @@ public class Main {
                 {
                     System.out.println("Enter value!");  
                     value = tb.nextInt();
+                    tb.nextLine();
 
                     if(value > maxValue || value < minValue)
                     {
@@ -238,4 +277,32 @@ public class Main {
             }
         }
 
+        public static Boolean choosBoolean(Boolean isAvailable, String inputString,  Scanner tb)
+        {
+                while (true) 
+                {
+                    try 
+                    {
+                    System.out.println("Define availability, yes or no");  
+                    inputString = tb.nextLine();
+                    
+                    if (inputString.equalsIgnoreCase("yes")) 
+                        {
+                            return true;
+                        }
+                        else if(inputString.equalsIgnoreCase("no"))
+                        {
+                            return false;
+                        }
+                        else
+                        {
+                            continue;
+                        }
+                    } 
+                    catch (Exception e) 
+                    {
+                        System.out.println("error in choosing boolean: " + e.getMessage());
+                    }
+                }
+        }
 }
