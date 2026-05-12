@@ -84,42 +84,44 @@ public class Main {
             HttpResponse<String> all_magazineResponse;
 
             // all different actions
-            if(input == 1){
+            if(input == 1)
+            {
         //Hämtar innehållet i Books
-            try
-            {
-                all_book_response = Unirest.get(baseUrl+ "books").asString();
+                try
+                {
+                    all_book_response = Unirest.get(baseUrl+ "books").asString();
+                }
+                catch(UnirestException e)
+                {
+                    System.out.println("Error when reading"+ e.getLocalizedMessage());
+                    return;
+                }
+
+                int status_books = all_book_response.getStatus();
+                if( status_books != 200 || status_books != 204)
+
+                {
+                    System.out.println("Statuscode: " + status_books + "serverissue");
+                }
+
+
+                String get_bookBody = all_book_response.getBody();
+
+                try
+                {
+                    Files.writeString(Paths.get("books.json"), get_bookBody);
+                    System.out.println("Data saved to books.json");
+                }
+                catch(IOException e)
+                {
+                    System.out.println("Fileissue: " + e.getMessage());
+                }
+
+                
+                books = gson.fromJson(get_bookBody, bookType);
+
+                System.out.println("booklist created");
             }
-            catch(UnirestException e)
-            {
-                System.out.println("Error when reading"+ e.getLocalizedMessage());
-                return;
-            }
-
-            int status_books = all_book_response.getStatus();
-            if( status_books != 200 || status_books != 204)
-            {
-                System.out.println("Statuscode: " + status_books + "serverissue");
-            }
-
-
-            String get_bookBody = all_book_response.getBody();
-
-            try
-            {
-                Files.writeString(Paths.get("books.json"), get_bookBody);
-                System.out.println("Data saved to books.json");
-            }
-            catch(IOException e)
-            {
-                System.out.println("Fileissue: " + e.getMessage());
-            }
-
-            
-            books = gson.fromJson(get_bookBody, bookType);
-
-            System.out.println("booklist created");
-    }
 
             else if(input == 2)
             {
