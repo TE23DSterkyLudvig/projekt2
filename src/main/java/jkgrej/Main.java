@@ -1,4 +1,8 @@
 package jkgrej;
+
+// A program where the user is allowed to read in all the books and magazines, as well as to print all the 
+// diffrents types of litteratures. The user can also add new litterature objects. The user can also close the program.
+
 import com.google.gson.*;
 
 import java.io.IOException;
@@ -23,6 +27,10 @@ public class Main {
         String inputString = "";
         ArrayList<Books> books = new ArrayList<>();
         ArrayList<Magazines> magazines = new ArrayList<>();
+
+
+        Type bookType = new TypeToken<ArrayList<Books>>(){}.getType();
+        Type magazineType = new TypeToken<ArrayList<Magazines>>(){}.getType();
 
  
         String title = "";
@@ -71,9 +79,10 @@ public class Main {
         }
         
 
-
+            // The responses you get from the server.
             HttpResponse<String> all_book_response;
             HttpResponse<String> all_magazineResponse;
+
             // all different actions
             if(input == 1){
         //Hämtar innehållet i Books
@@ -106,7 +115,7 @@ public class Main {
                 System.out.println("Fileissue: " + e.getMessage());
             }
 
-            Type bookType = new TypeToken<ArrayList<Books>>(){}.getType();
+            
             books = gson.fromJson(get_bookBody, bookType);
 
             System.out.println("booklist created");
@@ -114,6 +123,7 @@ public class Main {
 
             else if(input == 2)
             {
+                //If the user wants to get all magazines.
                 try 
                 {
                     all_magazineResponse = Unirest.get(baseUrl + "magazines").asString();
@@ -143,7 +153,7 @@ public class Main {
                     System.out.println("file Error: " + e.getMessage());
                 }
 
-                Type magazineType = new TypeToken<ArrayList<Magazines>>(){}.getType();
+                magazineType = new TypeToken<ArrayList<Magazines>>(){}.getType();
                 magazines = gson.fromJson(magazineBody, magazineType);
 
                 System.out.println("magazine list created");
@@ -153,6 +163,7 @@ public class Main {
 
             else if(input == 3)
             {
+                // if the user wants to print all books
                 for (Books b : books) 
                 {
                     System.out.println(b.toString());
@@ -160,7 +171,8 @@ public class Main {
             }
         
             else if(input == 4)
-            {
+            { 
+                // if the user awants to print all magazines
                 for (Magazines m: magazines) 
                 {
                     System.out.println(m.toString());
@@ -169,6 +181,7 @@ public class Main {
       
             else if(input == 5)
             {
+                // What happens when a book gets added
                 System.out.println("You chose to add a book!");
 
                 System.out.println("Define pages from 100 to 800");
@@ -183,12 +196,25 @@ public class Main {
 
                 books.add(new Books(0, title, isAvailable, author, genre, pages));
                 System.out.println("added new book object.");
+
+                String stringJsonBook  = gson.toJson(books);
+        
+
                 
-                
+                try 
+                {  
+                    Files.writeString(Paths.get("books.json" ), stringJsonBook);
+                } 
+                catch (IOException e) 
+                {
+                    System.out.println("Error reading in: " + e.getLocalizedMessage());
+                }
             }
         
             else if(input == 6)
             {
+
+                // what happens when a magazine gets added
                 System.out.println("Your chose to add a magazine.");
 
                 System.out.println("Define title");
@@ -205,10 +231,23 @@ public class Main {
                 magazines.add(new Magazines(0, title, isAvailable, issueNumber, category, publishedYear));
                 System.out.println("added magazine object.");
 
+                String stringJsonMagazine = gson.toJson(magazines);
+
+                try 
+                {  
+                    Files.writeString(Paths.get("magazine.json" ), stringJsonMagazine);
+                } 
+                catch (IOException e) 
+                {
+                    System.out.println("Error reading in: " + e.getLocalizedMessage());
+                }
+
+               
             }
         
             else if(input == 7)
             {
+                //closes program
                 System.out.println("Closing program");
                 tb.close();
                 System.exit(0);
