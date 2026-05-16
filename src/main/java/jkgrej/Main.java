@@ -32,7 +32,7 @@ public class Main {
         Type bookType = new TypeToken<ArrayList<Books>>(){}.getType();
         Type magazineType = new TypeToken<ArrayList<Magazines>>(){}.getType();
 
- 
+        int id;
         String title = "";
         boolean isAvailable;
 
@@ -98,8 +98,7 @@ public class Main {
                 }
 
                 int status_books = all_book_response.getStatus();
-                if( status_books != 200 || status_books != 204)
-
+                if( status_books != 200)
                 {
                     System.out.println("Statuscode: " + status_books + "serverissue");
                 }
@@ -138,7 +137,7 @@ public class Main {
 
                 int magazineStatus = all_magazineResponse.getStatus();
                         
-                if( magazineStatus != 200 || magazineStatus != 204)
+                if( magazineStatus != 200 )
                 {
                     System.out.println("Statuscode: " + magazineStatus + "serverissue");
                 }
@@ -196,6 +195,8 @@ public class Main {
                 title = chooseString(title,tb);
                 isAvailable = choosBoolean(null, inputString, tb);
 
+                
+
                 books.add(new Books(0, title, isAvailable, author, genre, pages));
                 System.out.println("added new book object.");
 
@@ -211,6 +212,29 @@ public class Main {
                 {
                     System.out.println("Error reading in: " + e.getLocalizedMessage());
                 }
+
+                
+                HttpResponse<String> postBookResponse;
+
+                try
+                {
+                    postBookResponse = Unirest.post(baseUrl)
+                        .header("Content-Type", "application/json")
+                        .body(stringJsonBook)
+                        .asString();
+                }
+                catch(UnirestException e)
+                {
+                    System.out.println("Error in connection:" + e.getLocalizedMessage());
+                    return;
+                }
+
+                int magazineStatus = postBookResponse.getStatus();
+                if(magazineStatus != 200 && magazineStatus != 201)
+                {
+                    System.out.println("Errorcode: " +  magazineStatus);
+                }
+                System.out.println("Created magazine");
             }
         
             else if(input == 6)
@@ -230,6 +254,7 @@ public class Main {
                 System.out.println("Define publishedyear from 1923 to 2026");
                 publishedYear = chooseInt(publishedYear, 2026, 1923, tb);
 
+
                 magazines.add(new Magazines(0, title, isAvailable, issueNumber, category, publishedYear));
                 System.out.println("added magazine object.");
 
@@ -241,8 +266,31 @@ public class Main {
                 } 
                 catch (IOException e) 
                 {
-                    System.out.println("Error reading in: " + e.getLocalizedMessage());
+                    System.out.println("Error reading in: " + e.getMessage());
                 }
+
+
+                HttpResponse<String> postMagaziResponse;
+
+                try
+                {
+                    postMagaziResponse = Unirest.post(baseUrl)
+                        .header("Content-Type", "application/json")
+                        .body(stringJsonMagazine)
+                        .asString();
+                }
+                catch(UnirestException e)
+                {
+                    System.out.println("Error in connection:" + e.getLocalizedMessage());
+                    return;
+                }
+
+                int magazineStatus = postMagaziResponse.getStatus();
+                if(magazineStatus != 200 && magazineStatus != 201)
+                {
+                    System.out.println("Errorcode: " +  magazineStatus);
+                }
+                System.out.println("Created magazine");
 
                
             }

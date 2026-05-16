@@ -17,6 +17,7 @@ public class Books extends Litterature {
         this.author = author;
         this.genre = genre;
         this.pages = pages;
+        
     }
 
     public Books(){}

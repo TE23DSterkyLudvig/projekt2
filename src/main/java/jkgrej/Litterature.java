@@ -16,7 +16,7 @@ public abstract class Litterature implements Comparable<Litterature>{
 
     public Litterature(int id, String title, boolean isAvailable)
     {
-        this.id = 0;
+        this.id= id;
         this.title = title;
         this.isAvailable = true;
     }
@@ -31,11 +31,12 @@ public abstract class Litterature implements Comparable<Litterature>{
    
 
 
-    //Jämför id av litterärar verk för att ordna dem i ordning senare med hjälp av collections.sort.
+    //Jämför title av litterärar verk för att ordna dem i ordning senare med hjälp av collections.sort.
     @Override
     public int compareTo(Litterature other) {
-        return Integer.compare(this.id, other.id);
+        return this.title.compareTo(other.title);
     }
+
 
  /*Om jag eventuelltt kommer använda HashSet */
     @Override
