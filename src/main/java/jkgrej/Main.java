@@ -27,6 +27,10 @@ public class Main {
         String inputString = "";
         ArrayList<Books> books = new ArrayList<>();
         ArrayList<Magazines> magazines = new ArrayList<>();
+        ArrayList<Users> users = new ArrayList<>();
+        ArrayList<Suspended> suspended = new ArrayList<>();
+
+        Functions functions = new Functions(books, magazines,users, suspended, baseUrl,gson,tb);
 
 
         Type bookType = new TypeToken<ArrayList<Books>>(){}.getType();
@@ -186,18 +190,19 @@ public class Main {
                 System.out.println("You chose to add a book!");
 
                 System.out.println("Define pages from 100 to 800");
-                pages = chooseInt(pages, 800 , 100, tb );
+                pages = functions.chooseInt(pages, 800 , 100);
                 System.out.println("Define author");
-                author = chooseString(author, tb);
+                author = functions.chooseString(author);
                 System.out.println("Define genre");
-                genre = chooseString(genre, tb);
+                genre = functions. chooseString(genre);
                 System.out.println("Define title");
-                title = chooseString(title,tb);
-                isAvailable = choosBoolean(null, inputString, tb);
+                title = functions.chooseString(title);
+                isAvailable = functions.choosBoolean(null, inputString);
 
                 
 
-                books.add(new Books(0, title, isAvailable, author, genre, pages));
+               Books newBook = new Books(0, title, isAvailable, author, genre, pages);
+               books.add(newBook);
                 System.out.println("added new book object.");
 
                 String stringJsonBook  = gson.toJson(books);
@@ -216,11 +221,13 @@ public class Main {
                 
                 HttpResponse<String> postBookResponse;
 
+                String jsonSingelObject = gson.toJson(newBook);
+
                 try
                 {
-                    postBookResponse = Unirest.post(baseUrl)
+                    postBookResponse = Unirest.post(baseUrl +"books")
                         .header("Content-Type", "application/json")
-                        .body(stringJsonBook)
+                        .body(jsonSingelObject)
                         .asString();
                 }
                 catch(UnirestException e)
@@ -229,12 +236,12 @@ public class Main {
                     return;
                 }
 
-                int magazineStatus = postBookResponse.getStatus();
-                if(magazineStatus != 200 && magazineStatus != 201)
+                int bookStatus = postBookResponse.getStatus();
+                if(bookStatus != 200 && bookStatus != 201)
                 {
-                    System.out.println("Errorcode: " +  magazineStatus);
+                    System.out.println("Errorcode: " +  bookStatus);
                 }
-                System.out.println("Created magazine");
+                System.out.println("Created book");
             }
         
             else if(input == 6)
@@ -244,15 +251,15 @@ public class Main {
                 System.out.println("Your chose to add a magazine.");
 
                 System.out.println("Define title");
-                title = chooseString(title, tb);
+                title = functions.chooseString(title);
                 
-                isAvailable = choosBoolean(null, inputString, tb);
+                isAvailable = functions.choosBoolean(null, inputString);
                 System.out.println("Define issuenumber from 1 to 1723");
-                issueNumber = chooseInt(issueNumber,1723,1,tb);
+                issueNumber = functions.chooseInt(issueNumber,1723,1);
                 System.out.println("Define category");
-                category = chooseString(category, tb);
+                category = functions.chooseString(category);
                 System.out.println("Define publishedyear from 1923 to 2026");
-                publishedYear = chooseInt(publishedYear, 2026, 1923, tb);
+                publishedYear = functions.chooseInt(publishedYear, 2026, 1923);
 
 
                 magazines.add(new Magazines(0, title, isAvailable, issueNumber, category, publishedYear));
@@ -309,7 +316,7 @@ public class Main {
     }
         // makes it possible to check ints, string and booleans.
 
-        public static int chooseInt(int value, int maxValue, int minValue, Scanner tb)
+     /*    public static int chooseInt(int value, int maxValue, int minValue, Scanner tb)
         {
             while(true){
                 try 
@@ -396,4 +403,5 @@ public class Main {
                     }
                 }
         }
+                 */
 }
