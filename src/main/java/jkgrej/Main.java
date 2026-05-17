@@ -66,13 +66,13 @@ public class Main {
         {
             try 
             { 
-                System.out.println("1.read different object lists \n2.write diffrent objects \n3.add diffrent singular object \n4. read one object \n5.find litterature \n6.find users \n7.remove objects \n8.Sort objects \n9.Seperate users and suspended users");
+                System.out.println("1.read different object lists \n2.write diffrent objects \n3.add diffrent singular object \n4. read one object \n5.find litterature \n6.find users \n7.remove objects \n8.Sort objects \n9.Seperate users and suspended users \n10.closer program");
                 input = tb.nextInt();
                 tb.nextLine();
                 
-                if(input > 9 || input< 1)
+                if(input > 10 || input < 1)
                 {
-                    System.out.println("Not bigger than 9 or smaller than 1");
+                    System.out.println("Not bigger than 10 or smaller than 1");
                     System.out.println("enter again");
                     tb.nextLine();
                     continue;
@@ -346,8 +346,10 @@ public class Main {
                     case 4:
                         System.out.println("You chose to add a suspended");
                         functions.addSuspended(customer_id, response);
+                        break;
                     default:
-                    System.out.println("error");
+                        System.out.println("error");
+                        break;
                 }
             }
         
@@ -426,7 +428,8 @@ public class Main {
                         break;
                         
                     default:
-                    System.out.println("error");
+                        System.out.println("error");
+                        break;
                 }
             }
       
@@ -642,7 +645,7 @@ public class Main {
                         tb.nextLine();
                         continue;
                     }
-            }
+                }
        
                 switch(choice)
                 {
@@ -683,8 +686,84 @@ public class Main {
                         break;
                 }
         }
-       
 
+            else if(input == 8)
+            {   
+                System.out.println("you chose to sort the diffrent lists ");
+
+
+                int choice = 0;
+
+                while(true){
+                    try 
+                    {
+                        System.out.println("What would you like to sort, enter 1 to 3 \n1.books \n2.magazines \n3.Users");
+                        choice = tb.nextInt();
+                        tb.nextLine();
+
+                        if(choice > 3 || choice < 1)
+                        {
+                            System.out.println("Do not write a number bigger than 3 or lesser than 1");
+                            continue;
+                        }
+                        else
+                        {
+                            break;
+                        }
+                    } 
+                    catch (Exception e) 
+                    {
+                        System.out.println("Do not enter words or other: " + e.getMessage());
+                        tb.nextLine();
+                        continue;
+                    }
+                }
+
+                switch(choice)
+                {
+                    case 1: 
+                        System.out.println("You chose to sort books after title");
+
+                        functions.sortBooks();
+
+                        System.out.println(books.toString());
+                        break;
+                    case 2:
+                        System.out.println("You chose to sort magazines after title");
+
+                        functions.sortMagazines();
+
+                        System.out.println(magazines.toString());
+                        break;
+                    case 3:
+                        System.out.println("you chose to sort users after name");
+
+                        functions.sortUsers();
+
+                        System.out.println(users.toString());
+                        break;
+                    default:
+                        System.out.println("error");
+                        break;
+                }
+            } 
+
+            else if(input == 9)
+            {
+                System.out.println("you chose to seperate the suspended user from the users");
+
+                functions.seperateUsers();
+
+                System.out.println("seperation finished");
+            }
+
+            else if( input == 10)
+            {
+                System.out.println("Closing program");
+                tb.close();
+                Unirest.shutDown();
+                System.exit(0);
+            }
        
     }
         // makes it possible to check ints, string and booleans.
