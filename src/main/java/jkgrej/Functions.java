@@ -14,6 +14,8 @@ import java.lang.reflect.Type;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
+import java.util.Collections;
+
 
 
 public class Functions 
@@ -551,13 +553,14 @@ public class Functions
 
         try
         {
-            removeStatus = Unirest.delete(baseUrl + idRemove)
+            removeStatus = Unirest.delete(baseUrl +"books/" + idRemove)
                 .asEmpty()
                 .getStatus();
         }
         catch(UnirestException e)
         {
             System.out.println("error in connecting: "+ e.getLocalizedMessage());
+            return;
         }
 
         if(removeStatus == 200)
@@ -591,13 +594,14 @@ public class Functions
 
         try
         {
-            removeStatus = Unirest.delete(baseUrl + idRemove)
+            removeStatus = Unirest.delete(baseUrl +"magazines/"+ idRemove)
                 .asEmpty()
                 .getStatus();
         }
         catch(UnirestException e)
         {
             System.out.println("error in connecting: "+ e.getLocalizedMessage());
+            return;
         }
 
         if(removeStatus == 200)
@@ -613,6 +617,115 @@ public class Functions
             System.out.println("Error present with the connection");
         }
     }   
+
+
+    public void removeUser(String email)
+    {
+        int removeId = 0;
+        int removeStatus = 0;
+
+        for (Users user : users) 
+        {
+            if(user.getEmail().equalsIgnoreCase(email))
+            {
+                removeId = user.getId();
+                break;
+            }
+        }
+
+        try 
+        {
+            removeStatus = Unirest.delete(baseUrl + "users/" + removeId)
+                .asEmpty()
+                .getStatus();
+        } 
+        catch (UnirestException e) 
+        {
+            System.out.println("Error in connection: " + e.getLocalizedMessage());
+            return;
+        }
+
+        if(removeStatus == 200)
+        {
+            System.out.println("user with the id " + removeId + " removed");
+        }
+        else if(removeStatus == 204)
+        {
+            System.out.println("Nothing to remove at the id " + removeId);
+        }
+        else
+        {
+            System.out.println("Error present with the connection");
+        }
+
+    }
+
+
+    public void removeSuspended(int customer_id)
+    {
+        int removeId = 0;
+        int removeStatus = 0;
+
+        for (Suspended suspended : suspended_users) 
+        {
+            if(suspended.getCustomer_id() == customer_id)
+            {
+                removeId = suspended.getId();
+                break;
+            }
+        }
+
+        try 
+        {
+            removeStatus = Unirest.delete(baseUrl + "suspended/" + removeId)
+                .asEmpty()
+                .getStatus();
+        } 
+        catch (UnirestException e) 
+        {
+            System.out.println("Error in connection: " + e.getLocalizedMessage());
+            return;
+        }
+
+        if(removeStatus == 200)
+        {
+            System.out.println("Suspended user with the id " + removeId + " removed");
+        }
+        else if(removeStatus == 204)
+        {
+            System.out.println("Nothing to remove at the id " + removeId);
+        }
+        else
+        {
+            System.out.println("Error present with the connection");
+        }
+
+    }
+
+
+    public void sortBooks()
+    {
+        Collections.sort(this.books);
+        System.out.println("Booklist sorted");
+    }
+
+    public void sortMagazines()
+    {
+        Collections.sort(this.magazines);
+        System.out.println("Magazinelist sorted");
+    }
+
+    public void sortUsers()
+    {
+        Collections.sort(this.users);
+        System.out.println("Userlist sorted");
+    }
+
+    public void seperateUsers()
+    {
+        
+    }
+
 
 
     public int chooseInt(int value, int maxValue, int minValue)

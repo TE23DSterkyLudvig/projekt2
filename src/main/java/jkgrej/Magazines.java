@@ -24,6 +24,41 @@ public class Magazines extends Litterature{
 
     }
 
+    
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = super.hashCode();
+        result = prime * result + issueNumber;
+        result = prime * result + ((category == null) ? 0 : category.hashCode());
+        result = prime * result + publishedYear;
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (!super.equals(obj))
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        Magazines other = (Magazines) obj;
+        if (issueNumber != other.issueNumber)
+            return false;
+        if (category == null) {
+            if (other.category != null)
+                return false;
+        } else if (!category.equals(other.category))
+            return false;
+        if (publishedYear != other.publishedYear)
+            return false;
+        return true;
+    }
+
     public int getIssueNumber() {
         return this.issueNumber;
     }
