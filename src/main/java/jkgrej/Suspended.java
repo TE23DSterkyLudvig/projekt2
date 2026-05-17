@@ -1,5 +1,11 @@
 package jkgrej;
 
+// This class handles the suspended user objects. It takes the basic stuff from 
+// AllUsers (id) and adds the specifics like the customer ID of the suspended user. 
+// As well as this, the class also contains equals and hashCode methods for 
+// comparing different suspension records, as well as Setters/getters to change 
+// or get variables from the suspended objects.
+
 public class Suspended extends AllUsers {
 
     private int customer_id;

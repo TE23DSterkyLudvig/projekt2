@@ -1,5 +1,11 @@
 package jkgrej;
 
+// This class handles the actual user objects. It takes the basic stuff from 
+// AllUsers (id) and adds the specifics like the user's name and email address. 
+// As well as this, the class also implements the Comparable interface to sort users 
+// alphabetically by name, contains a toString method to write all elements, 
+// as well as Setters/getters to change or get variables from the user objects.
+
 public class Users extends AllUsers implements Comparable<Users>
 {
     

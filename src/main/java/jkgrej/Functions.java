@@ -16,6 +16,13 @@ import java.nio.file.Paths;
 
 import java.util.Collections;
 
+// This class handles all the main operations and server communication for the system.
+// It keeps track of the lists for books, magazines, users, and suspensions, working as
+// the bridge between the console and the database. As well as this, the class contains
+// methods to fetch data from the server, save copies to local JSON files, add new
+// items, and remove records by their IDs. It also includes helper methods for sorting
+// the lists, searching for specific items, and validating user input so the program
+// doesn't crash on bad inputs.
 
 
 public class Functions 
@@ -40,6 +47,7 @@ public class Functions
         this.baseUrl = baseUrl;
     }
 
+    // readOne only gets on object and readAll gets all objects as a list.
     public void readAllBooks(Type bookType)
 
     {   
@@ -295,7 +303,7 @@ public class Functions
         return suspended;
     }
 
-
+    //adds new instances to the server
     public void addBook(String title, boolean isAvailable, String author,String genre,int pages, String inputString)
     {
                 
@@ -499,7 +507,7 @@ public class Functions
     }
 }
 
-
+    //finds objects  by certain parameters
     public Users findUsers(String email)
     {
         for (Users user : users) 
@@ -545,7 +553,7 @@ public class Functions
         return null;
     }
 
-
+    // removes objects from server
     public void removeBook(String title)
     {
         int idRemove =0;
@@ -711,7 +719,7 @@ public class Functions
 
     }
 
-
+    //sorts the lists using comparable
     public void sortBooks()
     {
         Collections.sort(this.books);
@@ -730,6 +738,7 @@ public class Functions
         System.out.println("Userlist sorted");
     }
 
+    //Sepereates the suspended users from users
     public void seperateUsers()
     {
         int removeId = 0;

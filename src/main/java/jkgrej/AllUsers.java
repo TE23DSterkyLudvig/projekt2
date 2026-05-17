@@ -1,5 +1,12 @@
 package jkgrej;
 
+// This class serves as the base class for all user types in the system. 
+// It holds the basic stuff that every user shares (the id) so that subclasses 
+// like Users or Suspended can inherit it and add their own specific details. 
+// As well as this, the class also contains a toString method, equals and hashCode 
+// for comparing different user objects, as well as Setters/getters to change 
+// or get variables from the user objects.
+
 public class AllUsers 
 {
     
