@@ -67,7 +67,7 @@ public class Main {
         while (true) {
             
             System.out.println("----------------------------------------------");
-            System.out.println("Welcome to the library System\nWhat would you like to do?");
+            System.out.println("Welcome to the library System\nWhat would you like to do? ");
        
 
             while(true)
