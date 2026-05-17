@@ -145,8 +145,10 @@ public class Main {
                     case 4:
                         System.out.println("You chose to read all suspended");
                         functions.readAllSuspended(suspendedType);
+                        break;
                     default:
-                    System.out.println("error");
+                        System.out.println("error");
+                        break;
                 }
 
         //Hämtar innehållet i Books
@@ -250,7 +252,8 @@ public class Main {
                         }
                         break;
                     default:
-                    System.out.println("error");
+                        System.out.println("error");
+                        break;
 
 
 
@@ -351,11 +354,139 @@ public class Main {
             else if(input == 4)
             { 
                 // if the user awants to print all magazines
-                fd
+                System.out.println("You chose to read in one object");
+
+                int readInput;
+
+                while(true){
+                    try 
+                    {
+                        System.out.println("What would you like to enter 1 to 4 \n1.books \n2.magazines \n3.Users \n4.Suspended users");
+                        readInput = tb.nextInt();
+                        tb.nextLine();
+
+                        if(readInput > 4 || readInput < 1)
+                        {
+                            System.out.println("Do not write a number bigger than 4 or lesser than 1");
+                            continue;
+                        }
+                        else
+                        {
+                            break;
+                        }
+                    } 
+                    catch (Exception e) 
+                    {
+                        System.out.println("Do not enter words or other: " + e.getMessage());
+                        tb.nextLine();
+                        continue;
+                    }
+                }
+                
+                HttpResponse<String> response = null;
+                int idChoice = 0;
+                switch(readInput)
+                {
+                    case 1:
+                        System.out.println("You chose to get a book");
+
+                    
+                        System.out.println("Which id would you like to read in");
+                        idChoice = functions.chooseInt(idChoice, 99999, 1);
+                        
+                        Books book = functions.readOneBook(idChoice);
+                        System.out.println(book.toString());
+                        break;
+                    case 2:
+                        System.out.println("you chose to get a magazine ");
+                                            
+                        System.out.println("Which id would you like to read in");
+                        idChoice = functions.chooseInt(idChoice, 99999, 1);
+                        
+                        Magazines magazine = functions.readOneMagazine(idChoice);
+                        System.out.println(magazine.toString());
+                        break;
+                    case 3:
+                        System.out.println("you chose to get a user ");
+                                            
+                        System.out.println("Which id would you like to read in");
+                        idChoice = functions.chooseInt(idChoice, 99999, 1);
+                        
+                        Users user =  functions.readOneUser(idChoice);
+                        System.out.println(user.toString());
+                        break;
+                    case 4:
+                        System.out.println("you chose to get a suspended user ");
+                                            
+                        System.out.println("Which id would you like to read in");
+                        idChoice = functions.chooseInt(idChoice, 99999, 1);
+                        
+                        Suspended suspend = functions.readOneSuspended(idChoice);
+                        System.out.println(suspend.toString());
+                        break;
+                        
+                    default:
+                    System.out.println("error");
+                }
             }
       
             else if(input == 5)
             {
+
+                System.out.println("you chose to find a litterature by title ");
+
+                int choice = 0;
+
+                while(true)
+                {
+                    try 
+                    {
+                        System.out.println("Would you like to find a \n1.book object \n2.magazine object \nWrite 1 or 2 ");
+                        choice = tb.nextInt();
+                        tb.nextLine();
+
+                        if(choice > 2 || choice < 1)
+                        {
+                            System.out.println("Value can't be smaller than 1 or bigger than 2");
+                            continue;
+                        }
+                        else
+                        {
+                            break;
+                        }
+                    } 
+                    catch (Exception e) 
+                    {
+                        tb.nextLine();
+                        System.out.println("No words or charachters, only numbers: " + e.getMessage());
+                        continue;
+                    }
+                }
+
+
+                switch(choice)
+                {
+                    case 1:
+                        System.out.println("You chose to find a book object by title");
+                        System.out.println("enter title");
+                        title = functions.chooseString(title);
+
+                        Books book = functions.findBooks(title);
+                        System.out.println(book.toString());
+                        break;
+                    case 2:
+                        System.out.println("You chose to find a magazine object by title");
+                        System.out.println("enter title:");
+                        title = functions.chooseString(title);
+
+                        Magazines magazine = functions.findMagazines(title);
+                        System.out.println(magazine.toString());
+                        break;
+                    default:
+                        System.out.println("error");
+                        break;
+                }
+                /* 
                 // What happens when a book gets added
                 System.out.println("You chose to add a book!");
 
@@ -412,11 +543,21 @@ public class Main {
                     System.out.println("Errorcode: " +  bookStatus);
                 }
                 System.out.println("Created book");
+                */
             }
         
             else if(input == 6)
             {
+                System.out.println("you chose to find a user using an email");
 
+                System.out.println("enter email");
+                email = functions.chooseString(email);
+
+                Users user = functions.findUsers(email);
+
+                System.out.println(user.toString());
+
+                /*
                 // what happens when a magazine gets added
                 System.out.println("Your chose to add a magazine.");
 
@@ -469,16 +610,78 @@ public class Main {
                 }
                 System.out.println("Created magazine");
 
-               
+               */
             }
         
             else if(input == 7)
             {
-                //closes program
-                System.out.println("Closing program");
-                tb.close();
-                System.exit(0);
+                System.out.println("you chose to remove objects from the server"); 
+
+                int choice = 0;
+
+                while(true){
+                    try 
+                    {
+                        System.out.println("What would you like to remove 1 to 4 \n1.books \n2.magazines \n3.Users \n4.Suspended users");
+                        choice = tb.nextInt();
+                        tb.nextLine();
+
+                        if(choice > 4 || choice < 1)
+                        {
+                            System.out.println("Do not write a number bigger than 4 or lesser than 1");
+                            continue;
+                        }
+                        else
+                        {
+                            break;
+                        }
+                    } 
+                    catch (Exception e) 
+                    {
+                        System.out.println("Do not enter words or other: " + e.getMessage());
+                        tb.nextLine();
+                        continue;
+                    }
             }
+       
+                switch(choice)
+                {
+                    case 1:
+                        System.out.println("you chose to remove a book");
+                        System.out.println("enter the title of the book");
+                        title = functions.chooseString(title);
+
+                        functions.removeBook(title);
+                        System.out.println("book removed");
+                        break;
+                    case 2:
+                        System.out.println("you chose to remove a magazine");
+                        System.out.println("enter the title of the magazine");
+                        title = functions.chooseString(title);
+
+                        functions.removeMagazine(title);
+                        System.out.println("magazine removed");
+                        break;
+                    case 3:
+                        System.out.println("you chose to remove a user");
+                        System.out.println("enter the email of the user");
+                        email = functions.chooseString(email);
+
+                        functions.removeUser(email);
+                        System.out.println("user removed");
+                        break;
+                    case 4:
+                        System.out.println("you chose to remove a suspended user");
+                        System.out.println("enter the customer id of the user in numbers");
+                        customer_id = functions.chooseInt(customer_id, 9999, 1);
+
+                        functions.removeSuspended(customer_id);
+                        System.out.println("Suspended user removed");
+                        break;
+                    default:
+                        System.out.println("error");
+                        break;
+                }
         }
        
 
@@ -572,6 +775,7 @@ public class Main {
                         System.out.println("error in choosing boolean: " + e.getMessage());
                     }
                 }
+                    */
         }
-                 */
+                 
 }
