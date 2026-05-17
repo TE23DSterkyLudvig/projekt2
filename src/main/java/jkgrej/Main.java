@@ -197,7 +197,7 @@ public class Main {
                 genre = functions. chooseString(genre);
                 System.out.println("Define title");
                 title = functions.chooseString(title);
-                isAvailable = functions.choosBoolean(null, inputString);
+                isAvailable = functions.chooseBoolean(null, inputString);
 
                 
 
@@ -253,7 +253,7 @@ public class Main {
                 System.out.println("Define title");
                 title = functions.chooseString(title);
                 
-                isAvailable = functions.choosBoolean(null, inputString);
+                isAvailable = functions.chooseBoolean(null, inputString);
                 System.out.println("Define issuenumber from 1 to 1723");
                 issueNumber = functions.chooseInt(issueNumber,1723,1);
                 System.out.println("Define category");

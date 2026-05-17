@@ -137,6 +137,7 @@ public class Functions
         System.out.println("magazinelist created");
     }
 
+    
     public Magazines readOneMagazine(HttpResponse<String> response, int id)
     {
         try 
@@ -196,6 +197,7 @@ public class Functions
         this.users = gson.fromJson(get_userBody, userType);
         System.out.println("userlist created");
     }
+
 
     public Users readOneUser(HttpResponse<String> response, int id)
     {
@@ -257,6 +259,7 @@ public class Functions
         System.out.println("suspended list created");
     }
 
+
     public Suspended readOneSuspended(HttpResponse<String> response, int id)
     {
         try 
@@ -283,8 +286,334 @@ public class Functions
     }
 
 
+    public void addBook(String title, boolean isAvailable, String author,String genre,int pages, HttpResponse<String> response, String inputString)
+    {
+                System.out.println("You chose to add a book!");
+
+                System.out.println("Define pages from 100 to 800");
+                pages = chooseInt(pages, 800 , 100);
+                System.out.println("Define author");
+                author = chooseString(author);
+                System.out.println("Define genre");
+                genre = chooseString(genre);
+                System.out.println("Define title");
+                title = chooseString(title);
+                isAvailable = chooseBoolean(null, inputString);
+
+                
+
+               Books newBook = new Books(0, title, isAvailable, author, genre, pages);
+               books.add(newBook);
+                System.out.println("added new book object.");
+
+                String stringJsonBook  = gson.toJson(books);
+        
+
+                
+                try 
+                {  
+                    Files.writeString(Paths.get("books.json" ), stringJsonBook);
+                } 
+                catch (IOException e) 
+                {
+                    System.out.println("Error reading in: " + e.getLocalizedMessage());
+                }
+
+                
+                HttpResponse<String> postBookResponse;
+
+                String jsonSingelObject = gson.toJson(newBook);
+
+                try
+                {
+                    postBookResponse = Unirest.post(baseUrl +"books")
+                        .header("Content-Type", "application/json")
+                        .body(jsonSingelObject)
+                        .asString();
+                }
+                catch(UnirestException e)
+                {
+                    System.out.println("Error in connection:" + e.getLocalizedMessage());
+                    return;
+                }
+
+                int bookStatus = postBookResponse.getStatus();
+                if(bookStatus != 200 && bookStatus != 201)
+                {
+                    System.out.println("Errorcode: " +  bookStatus);
+                }
+                System.out.println("Created book");
+    }
     
+
+    public void addMagazine(String title, boolean isAvailable,int issueNumber, String category, int publishedYear, HttpResponse<String> response, String inputString)
+    {
+                        System.out.println("Your chose to add a magazine.");
+
+                System.out.println("Define title");
+                title = chooseString(title);
+                
+                isAvailable = chooseBoolean(null, inputString);
+                System.out.println("Define issuenumber from 1 to 1723");
+                issueNumber = chooseInt(issueNumber,1723,1);
+                System.out.println("Define category");
+                category = chooseString(category);
+                System.out.println("Define publishedyear from 1923 to 2026");
+                publishedYear = chooseInt(publishedYear, 2026, 1923);
+
+
+                Magazines newMagazine = new Magazines(0, title, isAvailable, issueNumber, category, publishedYear);
+                System.out.println("added magazine object.");
+
+                String stringJsonMagazine = gson.toJson(magazines);
+
+                try 
+                {  
+                    Files.writeString(Paths.get("magazine.json" ), stringJsonMagazine);
+                } 
+                catch (IOException e) 
+                {
+                    System.out.println("Error reading in: " + e.getMessage());
+                }
+
+
+                HttpResponse<String> postMagaziResponse;
+
+                String singelMagazineObject = gson.toJson(newMagazine);
+
+                try
+                {
+                    postMagaziResponse = Unirest.post(baseUrl)
+                        .header("Content-Type", "application/json")
+                        .body(singelMagazineObject)
+                        .asString();
+                }
+                catch(UnirestException e)
+                {
+                    System.out.println("Error in connection:" + e.getLocalizedMessage());
+                    return;
+                }
+
+                int magazineStatus = postMagaziResponse.getStatus();
+                if(magazineStatus != 200 && magazineStatus != 201)
+                {
+                    System.out.println("Errorcode: " +  magazineStatus);
+                }
+                System.out.println("Created magazine");
+
+    }
+
+
+    public void addUser(String name, String email, HttpResponse<String> response) {
+    System.out.println("You chose to add a user!");
+
+    System.out.println("Define name");
+    name = chooseString(name);
     
+    System.out.println("Define email");
+    email = chooseString(email);
+
+    
+    Users newUser = new Users(0, name, email);
+    users.add(newUser);
+    System.out.println("Added new user object locally.");
+
+    
+    String stringJsonUsers = gson.toJson(users);
+    try {  
+        Files.writeString(Paths.get("users.json"), stringJsonUsers);
+    } catch (IOException e) {
+        System.out.println("Error writing to file: " + e.getLocalizedMessage());
+    }
+
+    String jsonSingleUser = gson.toJson(newUser);
+    try {
+        response = Unirest.post(baseUrl + "users")
+            .header("Content-Type", "application/json")
+            .body(jsonSingleUser)
+            .asString();
+    } catch(UnirestException e) {
+        System.out.println("Error in connection: " + e.getLocalizedMessage());
+        return;
+    }
+
+    int userStatus = response.getStatus();
+    if(userStatus != 200 && userStatus != 201) {
+        System.out.println("Errorcode: " + userStatus);
+    } else {
+        System.out.println("Created user on server");
+    }
+
+}
+
+
+    public void addSuspended(int customerId, HttpResponse<String> response) {
+    System.out.println("You chose to suspend a customer!");
+
+    System.out.println("Define customer ID to suspend from 1 to 999999");
+    customerId = chooseInt(customerId, 999999, 1);
+
+  
+    Suspended newSuspended = new Suspended(0,customerId);
+    suspended_users.add(newSuspended);
+    System.out.println("Added suspension locally.");
+
+    // 2. Spara hela listan lokalt till suspended.json
+    String stringJsonSuspended = gson.toJson(suspended_users);
+    try {  
+        Files.writeString(Paths.get("suspended.json"), stringJsonSuspended);
+    } catch (IOException e) {
+        System.out.println("Error writing to file: " + e.getLocalizedMessage());
+    }
+
+    // 3. Gör om ENBART den nya avstängningen till JSON för servern
+    String jsonSingleSuspended = gson.toJson(newSuspended);
+
+    try {
+        response = Unirest.post(baseUrl + "suspended") 
+            .header("Content-Type", "application/json")
+            .body(jsonSingleSuspended)
+            .asString();
+    } catch(UnirestException e) {
+        System.out.println("Error in connection: " + e.getLocalizedMessage());
+        return;
+    }
+
+    // 4. Kontrollera statuskod
+    int suspendedStatus = response.getStatus();
+    if(suspendedStatus != 200 && suspendedStatus != 201) {
+        System.out.println("Errorcode: " + suspendedStatus);
+    } else {
+        System.out.println("Customer suspended on server");
+    }
+}
+
+
+    public Users findUsers(String email)
+    {
+        for (Users user : users) 
+        {
+            if(user.getEmail().equalsIgnoreCase(email) )
+            {
+                System.out.println(user.getId()+ " id found");
+                
+                return user;
+            }   
+        }
+        System.out.println("No user with the email found");
+        return null;
+    }
+
+
+    public Books findBooks(String title)
+    {
+        for (Books book: books) 
+        {
+            if(book.getTitle().equalsIgnoreCase(title))
+            {
+                System.out.println("Found matching book with the title");
+                return book;
+            }
+        }
+        System.out.println("No matching book found");
+        return null;
+    }
+
+
+    public Magazines findMagazines(String title)
+    {
+        for (Magazines magazine: magazines) 
+        {
+            if(magazine.getTitle().equalsIgnoreCase(title))
+            {
+                System.out.println("Found matching magazine with the title");
+                return magazine;
+            }
+        }
+        System.out.println("No matching magazine found");
+        return null;
+    }
+
+
+    public void removeBook(String title)
+    {
+        int idRemove =0;
+        int removeStatus = 0;
+
+        for (Books book : books) 
+        {
+            if(book.getTitle().equalsIgnoreCase(title))
+            {
+                idRemove = book.getId();
+                break;
+            }
+        }
+
+        try
+        {
+            removeStatus = Unirest.delete(baseUrl + idRemove)
+                .asEmpty()
+                .getStatus();
+        }
+        catch(UnirestException e)
+        {
+            System.out.println("error in connecting: "+ e.getLocalizedMessage());
+        }
+
+        if(removeStatus == 200)
+        {
+            System.out.println("Book with the id " + idRemove + " removed");
+        }
+        else if(removeStatus == 204)
+        {
+            System.out.println("Nothing to remove at the id " + idRemove);
+        }
+        else
+        {
+            System.out.println("Error present with the connection");
+        }
+    }   
+
+
+    public void removeMagazine(String title)
+    {
+        int idRemove =0;
+        int removeStatus = 0;
+
+        for (Magazines magazine : magazines) 
+        {
+            if(magazine.getTitle().equalsIgnoreCase(title))
+            {
+                idRemove = magazine.getId();
+                break;
+            }
+        }
+
+        try
+        {
+            removeStatus = Unirest.delete(baseUrl + idRemove)
+                .asEmpty()
+                .getStatus();
+        }
+        catch(UnirestException e)
+        {
+            System.out.println("error in connecting: "+ e.getLocalizedMessage());
+        }
+
+        if(removeStatus == 200)
+        {
+            System.out.println("magazine with the id " + idRemove + " removed");
+        }
+        else if(removeStatus == 204)
+        {
+            System.out.println("Nothing to remove at the id " + idRemove);
+        }
+        else
+        {
+            System.out.println("Error present with the connection");
+        }
+    }   
+
 
     public int chooseInt(int value, int maxValue, int minValue)
     {
@@ -345,7 +674,7 @@ public class Functions
             }
         }
 
-    public Boolean choosBoolean(Boolean isAvailable, String inputString)
+    public Boolean chooseBoolean(Boolean isAvailable, String inputString)
         {
                 while (true) 
                 {
