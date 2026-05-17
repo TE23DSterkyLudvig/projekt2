@@ -35,10 +35,12 @@ public class Main {
 
         Type bookType = new TypeToken<ArrayList<Books>>(){}.getType();
         Type magazineType = new TypeToken<ArrayList<Magazines>>(){}.getType();
+        Type userType = new TypeToken<ArrayList<Users>>(){}.getType();
+        Type suspendedType =  new TypeToken<ArrayList<Suspended>>(){}.getType();
 
         int id;
         String title = "";
-        boolean isAvailable;
+        boolean isAvailable = true;
 
         String author = "";
         String genre = "";
@@ -47,6 +49,11 @@ public class Main {
         int issueNumber = 0;
         String category = "";
         int publishedYear = 0;
+
+        String name = "";
+        String email = "";
+
+        int customer_id = 0;
 
 
         while (true) {
@@ -59,13 +66,14 @@ public class Main {
         {
             try 
             { 
-                System.out.println("1.Get all books \n2.get all magazines \n3.Write all books \n4.Write all magazines \n5.Add book \n6.Add magazine \n7.close program");
+                System.out.println("1.read different object lists \n2.write diffrent objects \n3.add diffrent singular object \n4. read one object \n5.find litterature \n6.find users \n7.remove objects \n8.Sort objects \n9.Seperate users and suspended users");
                 input = tb.nextInt();
                 tb.nextLine();
                 
-                if(input > 7 || input< 1)
+                if(input > 9 || input< 1)
                 {
-                    System.out.println("Not bigger than 7 or smaller than 1");
+                    System.out.println("Not bigger than 9 or smaller than 1");
+                    System.out.println("enter again");
                     tb.nextLine();
                     continue;
                 }
@@ -90,7 +98,59 @@ public class Main {
             // all different actions
             if(input == 1)
             {
+
+                System.out.println("You chose to read in lists");
+
+                int readInput;
+
+                while(true){
+                    try 
+                    {
+                        System.out.println("What would you like to enter 1 to 4 \n1.books \n2.magazines \n3.Users \n4.Suspended users");
+                        readInput = tb.nextInt();
+                        tb.nextLine();
+
+                        if(readInput > 4 || readInput < 1)
+                        {
+                            System.out.println("Do not write a number bigger than 4 or lesser than 1");
+                            continue;
+                        }
+                        else
+                        {
+                            break;
+                        }
+                    } 
+                    catch (Exception e) 
+                    {
+                        System.out.println("Do not enter words or other: " + e.getMessage());
+                        tb.nextLine();
+                        continue;
+                    }
+                }
+                
+                switch(readInput)
+                {
+                    case 1:
+                        System.out.println("You chose to read all book");
+                        functions.readAllBooks(bookType);
+                        break;
+                    case 2:
+                        System.out.println("you chose to read all magazines ");
+                        functions.readAllMagazines(magazineType);
+                        break;
+                    case 3:
+                        System.out.println("You chose to read in all users");
+                        functions.readAllUsers(userType);
+                        break;
+                    case 4:
+                        System.out.println("You chose to read all suspended");
+                        functions.readAllSuspended(suspendedType);
+                    default:
+                    System.out.println("error");
+                }
+
         //Hämtar innehållet i Books
+        /* 
                 try
                 {
                     all_book_response = Unirest.get(baseUrl+ "books").asString();
@@ -124,11 +184,78 @@ public class Main {
                 books = gson.fromJson(get_bookBody, bookType);
 
                 System.out.println("booklist created");
+                */
             }
 
             else if(input == 2)
             {
+
+                System.out.println("You chose to write lists");
+
+                int readInput;
+
+                while(true){
+                    try 
+                    {
+                        System.out.println("What would you like to enter 1 to 4 \n1.books \n2.magazines \n3.Users \n4.Suspended users");
+                        readInput = tb.nextInt();
+                        tb.nextLine();
+
+                        if(readInput > 4 || readInput < 1)
+                        {
+                            System.out.println("Do not write a number bigger than 4 or lesser than 1");
+                            continue;
+                        }
+                        else
+                        {
+                            break;
+                        }
+                    } 
+                    catch (Exception e) 
+                    {
+                        System.out.println("Do not enter words or other: " + e.getMessage());
+                        tb.nextLine();
+                        continue;
+                    }
+                }
+                
+                switch(readInput)
+                {
+                    case 1:
+                        System.out.println("You chose to write all books");
+                        for (Books book : books) 
+                        {
+                            System.out.println(book.toString());
+                        }
+                        break;
+                    case 2:
+                        System.out.println("You chose to write all magazines");
+                        for (Magazines magazine : magazines) 
+                        {
+                            System.out.println(magazine.toString());
+                        }
+                        break;
+                    case 3:
+                        System.out.println("You chose to write all users");
+                        for (Users user : users) 
+                        {
+                            System.out.println(user.toString());
+                        }
+                        break;
+                    case 4:
+                        System.out.println("You chose to write all suspended users");
+                        for (Suspended suspendeds : suspended) 
+                        {
+                            System.out.println(suspendeds.toString());
+                        }
+                        break;
+                    default:
+                    System.out.println("error");
+
+
+
                 //If the user wants to get all magazines.
+                /* 
                 try 
                 {
                     all_magazineResponse = Unirest.get(baseUrl + "magazines").asString();
@@ -162,26 +289,69 @@ public class Main {
                 magazines = gson.fromJson(magazineBody, magazineType);
 
                 System.out.println("magazine list created");
-
-
+                */
+                }
        }
 
             else if(input == 3)
             {
-                // if the user wants to print all books
-                for (Books b : books) 
+                // if the user wants to print all book
+                System.out.println("You chose to add objects in lists");
+
+                int readInput;
+
+                while(true){
+                    try 
+                    {
+                        System.out.println("What would you like to enter 1 to 4 \n1.books \n2.magazines \n3.Users \n4.Suspended users");
+                        readInput = tb.nextInt();
+                        tb.nextLine();
+
+                        if(readInput > 4 || readInput < 1)
+                        {
+                            System.out.println("Do not write a number bigger than 4 or lesser than 1");
+                            continue;
+                        }
+                        else
+                        {
+                            break;
+                        }
+                    } 
+                    catch (Exception e) 
+                    {
+                        System.out.println("Do not enter words or other: " + e.getMessage());
+                        tb.nextLine();
+                        continue;
+                    }
+                }
+                
+                HttpResponse<String> response = null;
+                switch(readInput)
                 {
-                    System.out.println(b.toString());
+                    case 1:
+                        System.out.println("You chose to add a book");
+                        functions.addBook(title, isAvailable, author, genre, pages,inputString);
+                        break;
+                    case 2:
+                        System.out.println("you chose to add a magazine ");
+                        functions.addMagazine(title, isAvailable, issueNumber, category, publishedYear, inputString);
+                        break;
+                    case 3:
+                        System.out.println("You chose to add a user");
+                        functions.addUser(name, email, response);;
+                        break;
+                    case 4:
+                        System.out.println("You chose to add a suspended");
+                        functions.addSuspended(customer_id, response);
+                    default:
+                    System.out.println("error");
                 }
             }
         
             else if(input == 4)
             { 
                 // if the user awants to print all magazines
-                for (Magazines m: magazines) 
-                {
-                    System.out.println(m.toString());
-                }
+                fd
             }
       
             else if(input == 5)

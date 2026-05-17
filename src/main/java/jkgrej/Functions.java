@@ -40,9 +40,10 @@ public class Functions
         this.baseUrl = baseUrl;
     }
 
-    public void readAllBooks(HttpResponse<String> response, Type bookType)
+    public void readAllBooks(Type bookType)
 
-    {
+    {   
+                HttpResponse<String> response;
                 try
                 {
                     response = Unirest.get(baseUrl+ "books").asString();
@@ -76,9 +77,10 @@ public class Functions
                 }
     }
 
-    public Books readOneBook (HttpResponse<String> response, int id)
+    public Books readOneBook (int id)
     {
-        try 
+        HttpResponse<String> response = null;
+        try
         {
             response = Unirest.get(baseUrl + "books/" + id).asString();
         } 
@@ -104,8 +106,9 @@ public class Functions
     
 
 
-    public void readAllMagazines(HttpResponse<String> response, Type magazineType)
+    public void readAllMagazines(Type magazineType)
     {
+        HttpResponse<String> response = null;
         try
         {
             response = Unirest.get(baseUrl + "magazines").asString();
@@ -140,8 +143,9 @@ public class Functions
     }
 
     
-    public Magazines readOneMagazine(HttpResponse<String> response, int id)
-    {
+    public Magazines readOneMagazine( int id)
+    {   
+        HttpResponse<String> response = null;
         try 
         {
             response = Unirest.get(baseUrl + "magazines/" + id).asString();
@@ -166,8 +170,9 @@ public class Functions
     }
 
 
-    public void readAllUsers(HttpResponse<String> response, Type userType)
+    public void readAllUsers(Type userType)
     {
+        HttpResponse<String> response= null;
         try
         {
             response = Unirest.get(baseUrl + "users").asString();
@@ -201,8 +206,9 @@ public class Functions
     }
 
 
-    public Users readOneUser(HttpResponse<String> response, int id)
+    public Users readOneUser( int id)
     {
+        HttpResponse<String> response = null;
         try 
         {
             response = Unirest.get(baseUrl + "users/" + id).asString();
@@ -227,8 +233,9 @@ public class Functions
     }
 
 
-    public void readAllSuspended(HttpResponse<String> response, Type suspendedType)
+    public void readAllSuspended(Type suspendedType)
     {
+        HttpResponse<String> response = null;
         try
         {
             response = Unirest.get(baseUrl + "suspended").asString();
@@ -262,8 +269,9 @@ public class Functions
     }
 
 
-    public Suspended readOneSuspended(HttpResponse<String> response, int id)
+    public Suspended readOneSuspended( int id)
     {
+        HttpResponse<String> response = null;
         try 
         {
             response = Unirest.get(baseUrl + "suspended/" + id).asString();
@@ -288,8 +296,9 @@ public class Functions
     }
 
 
-    public void addBook(String title, boolean isAvailable, String author,String genre,int pages, HttpResponse<String> response, String inputString)
+    public void addBook(String title, boolean isAvailable, String author,String genre,int pages, String inputString)
     {
+                
                 System.out.println("You chose to add a book!");
 
                 System.out.println("Define pages from 100 to 800");
@@ -348,9 +357,9 @@ public class Functions
     }
     
 
-    public void addMagazine(String title, boolean isAvailable,int issueNumber, String category, int publishedYear, HttpResponse<String> response, String inputString)
+    public void addMagazine(String title, boolean isAvailable,int issueNumber, String category, int publishedYear, String inputString)
     {
-                        System.out.println("Your chose to add a magazine.");
+                System.out.println("Your chose to add a magazine.");
 
                 System.out.println("Define title");
                 title = chooseString(title);
@@ -723,7 +732,50 @@ public class Functions
 
     public void seperateUsers()
     {
+        int removeId = 0;
+        int removeStatus = 0;
+
+            
+        for (Users user : users) 
+        {
+            for (Suspended suspended : suspended_users) 
+            {
+                if(user.getId() == suspended.getCustomer_id())
+                {
+                    removeId = user.getId();
+                    break;
+                }
+                    
+            }
+
+            break;
+        }
         
+
+        try
+        {
+            removeStatus = Unirest.delete(baseUrl +"users/"+ removeId)
+                .asEmpty()
+                .getStatus();
+        }
+        catch(UnirestException e)
+        {
+            System.out.println("error in connecting: "+ e.getLocalizedMessage());
+            return;
+        }
+
+        if(removeStatus == 200)
+        {
+            System.out.println("magazine with the id " + removeId + " removed");
+        }
+        else if(removeStatus == 204)
+        {
+            System.out.println("Nothing to remove at the id " + removeId);
+        }
+        else
+        {
+            System.out.println("Error present with the connection");
+        }
     }
 
 
