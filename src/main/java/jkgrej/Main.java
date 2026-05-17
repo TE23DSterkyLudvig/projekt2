@@ -568,11 +568,11 @@ public class Main {
 
             else if(input == 9)
             {
-                System.out.println("you chose to seperate the suspended user from the users");
+                System.out.println("you chose to see who cant borrow a from the users");
 
                 functions.seperateUsers();
 
-                System.out.println("seperation finished");
+                System.out.println("finished");
             }
 
             else if( input == 10)

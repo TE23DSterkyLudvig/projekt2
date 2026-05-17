@@ -738,7 +738,7 @@ public class Functions
         System.out.println("Userlist sorted");
     }
 
-    //Sepereates the suspended users from users
+    //tells us who cant borrow.
     public void seperateUsers()
     {
         int removeId = 0;
@@ -751,8 +751,8 @@ public class Functions
             {
                 if(user.getId() == suspended.getCustomer_id())
                 {
-                    removeId = user.getId();
-                    break;
+                    
+                    System.out.println(user.toString()+ " cant borrow");
                 }
                     
             }
@@ -760,7 +760,7 @@ public class Functions
             break;
         }
         
-
+/* 
         try
         {
             removeStatus = Unirest.delete(baseUrl +"users/"+ removeId)
@@ -784,8 +784,9 @@ public class Functions
         else
         {
             System.out.println("Error present with the connection");
-        }
+        }*/
     }
+        
 
 
 
