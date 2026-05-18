@@ -11,7 +11,7 @@ public class Books extends Litterature {
     private String genre;
     private int pages;
 
-    public Books(int id, String title, boolean isAvailable, String author, String genre, int pages)
+    public Books(String id, String title, boolean isAvailable, String author, String genre, int pages)
     {
         super(id, title, isAvailable);
         this.author = author;

@@ -12,7 +12,7 @@ public class Users extends AllUsers implements Comparable<Users>
     private String name;
     private String email;
 
-    public Users(int id, String name, String email)
+    public Users(String id, String name, String email)
     {
         super(id);
         this.name = name;

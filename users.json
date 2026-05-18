@@ -1,0 +1,12 @@
+[
+  {
+    "id": "101",
+    "name": "Maria Karlsson",
+    "email": "maria@skola.se"
+  },
+  {
+    "id": "102",
+    "name": "Erik Ostlund",
+    "email": "erik@skola.se"
+  }
+]

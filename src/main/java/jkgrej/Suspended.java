@@ -8,9 +8,9 @@ package jkgrej;
 
 public class Suspended extends AllUsers {
 
-    private int customer_id;
+    private String customer_id;
 
-    public Suspended(int id, int customer_id)
+    public Suspended(String id, String customer_id)
     {
         super(id);
         this.customer_id = customer_id;
@@ -25,11 +25,14 @@ public class Suspended extends AllUsers {
     
 
 
+    
+
+
     @Override
     public int hashCode() {
         final int prime = 31;
-        int result = 1;
-        result = prime * result + customer_id;
+        int result = super.hashCode();
+        result = prime * result + ((customer_id == null) ? 0 : customer_id.hashCode());
         return result;
     }
 
@@ -40,21 +43,26 @@ public class Suspended extends AllUsers {
             return true;
         if (obj == null)
             return false;
+        if (!super.equals(obj))
+            return false;
         if (getClass() != obj.getClass())
             return false;
         Suspended other = (Suspended) obj;
-        if (customer_id != other.customer_id)
+        if (customer_id == null) {
+            if (other.customer_id != null)
+                return false;
+        } else if (!customer_id.equals(other.customer_id))
             return false;
         return true;
     }
 
 
-    public int getCustomer_id() {
+    public String getCustomer_id() {
         return customer_id;
     }
 
 
-    public void setCustomer_id(int customer_id) {
+    public void setCustomer_id(String customer_id) {
         this.customer_id = customer_id;
     }
 

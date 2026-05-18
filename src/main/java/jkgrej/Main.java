@@ -61,7 +61,7 @@ public class Main {
         String email = "";
 
         //variables suspended users
-        int customer_id = 0;
+        String customer_id = "";
 
 
         while (true) {
@@ -494,7 +494,7 @@ public class Main {
                     case 4:
                         System.out.println("you chose to remove a suspended user");
                         System.out.println("enter the customer id of the user in numbers");
-                        customer_id = functions.chooseInt(customer_id, 9999, 1);
+                        customer_id = functions.chooseString(customer_id);
 
                         functions.removeSuspended(customer_id);
                         System.out.println("Suspended user removed");

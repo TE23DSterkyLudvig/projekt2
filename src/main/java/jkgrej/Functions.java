@@ -81,11 +81,13 @@ public class Functions
                 catch(IOException e)
                 {
                     System.out.println("Fileissue: " + e.getMessage());
-                    this.books = gson.fromJson(get_bookBody, bookType);
+                    
 
-                System.out.println("booklist created");
+                
                 }
-    }
+                this.books = gson.fromJson(get_bookBody, bookType);
+                System.out.println("booklist created");
+}
 
     public Books readOneBook (int id)
     {
@@ -323,13 +325,13 @@ public class Functions
 
                 
 
-               Books newBook = new Books(0, title, isAvailable, author, genre, pages);
+               Books newBook = new Books("", title, isAvailable, author, genre, pages);
                books.add(newBook);
 
                //För att se till såa tt det kommer dubletter
                HashSet<Books> bookSet = new HashSet<>(books);
 
-                ArrayList<Books> books = new ArrayList<>(bookSet);
+                this.books = new ArrayList<>(bookSet);
 
                 System.out.println("added new book object.");
 
@@ -389,12 +391,12 @@ public class Functions
                 publishedYear = chooseInt(publishedYear, 2026, 1923);
 
 
-                Magazines newMagazine = new Magazines(0, title, isAvailable, issueNumber, category, publishedYear);
+                Magazines newMagazine = new Magazines("", title, isAvailable, issueNumber, category, publishedYear);
                 magazines.add(newMagazine);
                 //no duplications
                HashSet<Magazines> magazineSet = new HashSet<>(magazines);
 
-               ArrayList<Magazines> magazines = new ArrayList<>(magazineSet);
+               this.magazines = new ArrayList<>(magazineSet);
 
                 System.out.println("added magazine object.");
 
@@ -447,8 +449,14 @@ public class Functions
     email = chooseString(email);
 
     
-    Users newUser = new Users(0, name, email);
+    Users newUser = new Users("", name, email);
     users.add(newUser);
+    
+    //no duplications
+    HashSet<Users> userSet = new HashSet<>(users);
+
+    this.users = new ArrayList<>(userSet);
+
     System.out.println("Added new user object locally.");
 
     
@@ -480,20 +488,20 @@ public class Functions
 }
 
 
-    public void addSuspended(int customerId, HttpResponse<String> response) {
+    public void addSuspended(String customerId, HttpResponse<String> response) {
     System.out.println("You chose to suspend a customer!");
 
     System.out.println("Define customer ID to suspend from 1 to 999999");
-    customerId = chooseInt(customerId, 999999, 1);
+    customerId = chooseString(customerId);
 
   
-    Suspended newSuspended = new Suspended(0,customerId);
+    Suspended newSuspended = new Suspended("",customerId);
     suspended_users.add(newSuspended);
 
     //no duplications
     HashSet<Suspended> suspendSet = new HashSet<>(suspended_users);
 
-    ArrayList<Suspended> suspended_users = new ArrayList<>(suspendSet);
+    this.suspended_users = new ArrayList<>(suspendSet);
 
     System.out.println("Added suspension locally.");
 
@@ -532,7 +540,7 @@ public class Functions
     {
         for (Users user : users) 
         {
-            if(user.getEmail().equalsIgnoreCase(email) )
+            if(user.getEmail().trim().equalsIgnoreCase(email) )
             {
                 System.out.println(user.getId()+ " id found");
                 
@@ -548,7 +556,7 @@ public class Functions
     {
         for (Books book: books) 
         {
-            if(book.getTitle().equalsIgnoreCase(title))
+            if(book.getTitle().trim().equalsIgnoreCase(title))
             {
                 System.out.println("Found matching book with the title");
                 return book;
@@ -563,7 +571,7 @@ public class Functions
     {
         for (Magazines magazine: magazines) 
         {
-            if(magazine.getTitle().equalsIgnoreCase(title))
+            if(magazine.getTitle().trim().equalsIgnoreCase(title))
             {
                 System.out.println("Found matching magazine with the title");
                 return magazine;
@@ -576,7 +584,7 @@ public class Functions
     // removes objects from server
     public void removeBook(String title)
     {
-        int idRemove =0;
+        String idRemove ="";
         int removeStatus = 0;
 
         for (Books book : books) 
@@ -617,7 +625,7 @@ public class Functions
 
     public void removeMagazine(String title)
     {
-        int idRemove =0;
+        String idRemove ="";
         int removeStatus = 0;
 
         for (Magazines magazine : magazines) 
@@ -658,7 +666,7 @@ public class Functions
 
     public void removeUser(String email)
     {
-        int removeId = 0;
+        String removeId = "";
         int removeStatus = 0;
 
         for (Users user : users) 
@@ -698,9 +706,9 @@ public class Functions
     }
 
 
-    public void removeSuspended(int customer_id)
+    public void removeSuspended(String customer_id)
     {
-        int removeId = 0;
+        String removeId = "";
         int removeStatus = 0;
 
         for (Suspended suspended : suspended_users) 
@@ -768,7 +776,7 @@ public class Functions
         {
             for (Suspended suspended : suspended_users) 
             {
-                if(user.getId() == suspended.getCustomer_id())
+                if(user.getId().trim().equalsIgnoreCase(suspended.getCustomer_id()))
                 {
                     
                     System.out.println(user.toString()+ " cant borrow");
@@ -776,34 +784,10 @@ public class Functions
                     
             }
 
-            break;
+            
         }
         
-/* 
-        try
-        {
-            removeStatus = Unirest.delete(baseUrl +"users/"+ removeId)
-                .asEmpty()
-                .getStatus();
-        }
-        catch(UnirestException e)
-        {
-            System.out.println("error in connecting: "+ e.getLocalizedMessage());
-            return;
-        }
 
-        if(removeStatus == 200)
-        {
-            System.out.println("magazine with the id " + removeId + " removed");
-        }
-        else if(removeStatus == 204)
-        {
-            System.out.println("Nothing to remove at the id " + removeId);
-        }
-        else
-        {
-            System.out.println("Error present with the connection");
-        }*/
     }
         
 
@@ -821,7 +805,7 @@ public class Functions
                     if(value > maxValue || value < minValue)
                     {
                         System.out.println("Value cant be bigger than "+ maxValue + " or smaller than " + minValue);
-                        tb.nextLine();
+                        
                         continue;
                     }
                     else
