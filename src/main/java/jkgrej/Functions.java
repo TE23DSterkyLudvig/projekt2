@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
+
 import kong.unirest.HttpResponse;
 import kong.unirest.Unirest;
 import kong.unirest.UnirestException;
@@ -15,7 +15,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 
 import java.util.HashSet;
-
+import java.util.List;
 import java.util.Collections;
 
 // This class handles all the main operations and server communication for the system.
@@ -770,7 +770,29 @@ public class Functions
     public void seperateUsers()
     {
 
+        ArrayList<String> userIds = new ArrayList<>();
+        for (Users user : users) 
+        {
+            if(user.getId() != null)
+            {
+                userIds.add(user.getId().trim().toLowerCase());
+            }
+        }
 
+        List<String> suspendedIds = new ArrayList<>();
+        for (Suspended suspended : suspended_users) 
+        {
+            if (suspended.getCustomer_id() != null) 
+            {
+                suspendedIds.add(suspended.getCustomer_id().trim().toLowerCase());
+            }
+        }
+
+        userIds.removeAll(suspendedIds);
+        System.out.println("clenseing done, no duplications");
+
+
+        /* 
             
         for (Users user : users) 
         {
@@ -786,7 +808,7 @@ public class Functions
 
             
         }
-        
+        */
 
     }
         

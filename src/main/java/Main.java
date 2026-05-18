@@ -1,17 +1,20 @@
-package jkgrej;
-
-// A program where the user is allowed to read in all the books and magazines, as well as to print all the 
-// diffrents types of litteratures. The user can also add new litterature objects. The user can also close the program.
+import jkgrej.*;
 
 import com.google.gson.*;
 
-import java.io.IOException;
-import java.nio.file.*;
+
 import kong.unirest.*;
 import java.util.Scanner;
 import java.util.ArrayList;
 import com.google.gson.reflect.TypeToken;
- import java.lang.reflect.Type;
+
+import jkgrej.Books;
+import jkgrej.Functions;
+import jkgrej.Magazines;
+import jkgrej.Suspended;
+import jkgrej.Users;
+
+import java.lang.reflect.Type;
 
 
 
@@ -42,7 +45,7 @@ public class Main {
         Type suspendedType =  new TypeToken<ArrayList<Suspended>>(){}.getType();
 
         //variables Litterature
-        int id;
+        
         String title = "";
         boolean isAvailable = true;
 
@@ -315,7 +318,7 @@ public class Main {
                     }
                 }
                 
-                HttpResponse<String> response = null;
+                
                 int idChoice = 0;
                 switch(readInput)
                 {
