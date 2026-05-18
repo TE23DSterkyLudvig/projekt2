@@ -14,6 +14,8 @@ import java.lang.reflect.Type;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
+import java.util.HashSet;
+
 import java.util.Collections;
 
 // This class handles all the main operations and server communication for the system.
@@ -323,6 +325,12 @@ public class Functions
 
                Books newBook = new Books(0, title, isAvailable, author, genre, pages);
                books.add(newBook);
+
+               //För att se till såa tt det kommer dubletter
+               HashSet<Books> bookSet = new HashSet<>(books);
+
+                ArrayList<Books> books = new ArrayList<>(bookSet);
+
                 System.out.println("added new book object.");
 
                 String stringJsonBook  = gson.toJson(books);
@@ -382,6 +390,12 @@ public class Functions
 
 
                 Magazines newMagazine = new Magazines(0, title, isAvailable, issueNumber, category, publishedYear);
+                magazines.add(newMagazine);
+                //no duplications
+               HashSet<Magazines> magazineSet = new HashSet<>(magazines);
+
+               ArrayList<Magazines> magazines = new ArrayList<>(magazineSet);
+
                 System.out.println("added magazine object.");
 
                 String stringJsonMagazine = gson.toJson(magazines);
@@ -475,6 +489,12 @@ public class Functions
   
     Suspended newSuspended = new Suspended(0,customerId);
     suspended_users.add(newSuspended);
+
+    //no duplications
+    HashSet<Suspended> suspendSet = new HashSet<>(suspended_users);
+
+    ArrayList<Suspended> suspended_users = new ArrayList<>(suspendSet);
+
     System.out.println("Added suspension locally.");
 
     // 2. Spara hela listan lokalt till suspended.json
