@@ -741,8 +741,7 @@ public class Functions
     //tells us who cant borrow.
     public void seperateUsers()
     {
-        int removeId = 0;
-        int removeStatus = 0;
+
 
             
         for (Users user : users) 
