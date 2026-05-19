@@ -420,7 +420,7 @@ public class Functions
 
                 try
                 {
-                    postMagaziResponse = Unirest.post(baseUrl)
+                    postMagaziResponse = Unirest.post(baseUrl + "magazines")
                         .header("Content-Type", "application/json")
                         .body(singelMagazineObject)
                         .asString();

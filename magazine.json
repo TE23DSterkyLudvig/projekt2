@@ -24,14 +24,6 @@
     "isAvailable": true
   },
   {
-    "issueNumber": 2,
-    "category": "s",
-    "publishedYear": 1924,
-    "id": "",
-    "title": "s",
-    "isAvailable": true
-  },
-  {
     "issueNumber": 11,
     "category": "Technology",
     "publishedYear": 2025,
@@ -45,6 +37,14 @@
     "publishedYear": 2023,
     "id": "5",
     "title": "Healthy Living",
+    "isAvailable": true
+  },
+  {
+    "issueNumber": 8,
+    "category": "s",
+    "publishedYear": 1924,
+    "id": "",
+    "title": "s",
     "isAvailable": true
   },
   {
@@ -77,6 +77,14 @@
     "publishedYear": 2025,
     "id": "9",
     "title": "Global Politics",
+    "isAvailable": true
+  },
+  {
+    "issueNumber": 2,
+    "category": "s",
+    "publishedYear": 1924,
+    "id": "Jzokv64B394",
+    "title": "t",
     "isAvailable": true
   },
   {
