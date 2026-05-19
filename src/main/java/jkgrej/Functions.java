@@ -91,7 +91,7 @@ public class Functions
                 System.out.println("booklist created");
 }
 
-    public Books readOneBook (int id)
+    public Books readOneBook (String id)
     {
         HttpResponse<String> response = null;
         try
@@ -157,7 +157,7 @@ public class Functions
     }
 
     
-    public Magazines readOneMagazine( int id)
+    public Magazines readOneMagazine( String id)
     {   
         HttpResponse<String> response = null;
         try 
@@ -220,7 +220,7 @@ public class Functions
     }
 
 
-    public Users readOneUser( int id)
+    public Users readOneUser( String id)
     {
         HttpResponse<String> response = null;
         try 
@@ -283,7 +283,7 @@ public class Functions
     }
 
 
-    public Suspended readOneSuspended( int id)
+    public Suspended readOneSuspended( String id)
     {
         HttpResponse<String> response = null;
         try 
@@ -398,7 +398,7 @@ public class Functions
                 //no duplications
                HashSet<Magazines> magazineSet = new HashSet<>(magazines);
 
-               this.magazines = new ArrayList<>(magazineSet);
+               magazines = new ArrayList<>(magazineSet);
 
                 System.out.println("added magazine object.");
 
@@ -794,23 +794,7 @@ public class Functions
         System.out.println("clenseing done, no duplications");
 
 
-        /* 
-            
-        for (Users user : users) 
-        {
-            for (Suspended suspended : suspended_users) 
-            {
-                if(user.getId().trim().equalsIgnoreCase(suspended.getCustomer_id()))
-                {
-                    
-                    System.out.println(user.toString()+ " cant borrow");
-                }
-                    
-            }
-
-            
-        }
-        */
+        
 
     }
         

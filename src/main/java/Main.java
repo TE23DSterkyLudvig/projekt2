@@ -74,14 +74,14 @@ public class Main {
         while (true) {
             
             System.out.println("----------------------------------------------");
-            System.out.println("Welcome to the library System\nWhat would you like to do? ");
+            System.out.println("Welcome to the library System\nWhat would you like to do? Write a number form 1 to 10 ");
        
 
             while(true)
             {
                 try 
                 { 
-                    System.out.println("1.read different object lists \n2.write diffrent objects \n3.add diffrent singular object \n4. read one object \n5.find litterature \n6.find users \n7.remove objects \n8.Sort objects \n9.Seperate users and suspended users \n10.closer program");
+                    System.out.println("1.read different object lists \n2.write diffrent objects \n3.add diffrent singular object \n4.read one object \n5.find litterature \n6.find users \n7.remove objects \n8.Sort objects \n9.Seperate users and suspended users \n10.closer program");
                     input = tb.nextInt();
                     tb.nextLine();
                     
@@ -323,7 +323,7 @@ public class Main {
                 }
                 
                 
-                int idChoice = 0;
+                String idChoice = "";
                 switch(readInput)
                 {
                     case 1:
@@ -331,7 +331,7 @@ public class Main {
 
                     
                         System.out.println("Which id would you like to read in");
-                        idChoice = functions.chooseInt(idChoice, 99999, 1);
+                        idChoice = functions.chooseString(idChoice);
                         
                         Books book = functions.readOneBook(idChoice);
                         System.out.println(book.toString());
@@ -340,7 +340,7 @@ public class Main {
                         System.out.println("you chose to get a magazine ");
                                             
                         System.out.println("Which id would you like to read in");
-                        idChoice = functions.chooseInt(idChoice, 99999, 1);
+                        idChoice = functions.chooseString(idChoice);
                         
                         Magazines magazine = functions.readOneMagazine(idChoice);
                         System.out.println(magazine.toString());
@@ -349,7 +349,7 @@ public class Main {
                         System.out.println("you chose to get a user ");
                                             
                         System.out.println("Which id would you like to read in");
-                        idChoice = functions.chooseInt(idChoice, 99999, 1);
+                        idChoice = functions.chooseString(idChoice);
                         
                         Users user =  functions.readOneUser(idChoice);
                         System.out.println(user.toString());
@@ -358,7 +358,7 @@ public class Main {
                         System.out.println("you chose to get a suspended user ");
                                             
                         System.out.println("Which id would you like to read in");
-                        idChoice = functions.chooseInt(idChoice, 99999, 1);
+                        idChoice = functions.chooseString(idChoice);
                         
                         Suspended suspend = functions.readOneSuspended(idChoice);
                         System.out.println(suspend.toString());
