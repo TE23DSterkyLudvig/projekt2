@@ -1,5 +1,6 @@
 package jkgrej;
 
+//Ludvig Sterky
 //This is the abstract parent class named Litterature, which has two extending subclasses, Books and Magazines,
 // which implement the methods and variables present in Litterature. This class also contains toString,
 // which makes it possible to showcase all elements as well as Setters/getters to change or get variables present in objects.

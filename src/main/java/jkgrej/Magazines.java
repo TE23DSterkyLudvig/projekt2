@@ -1,5 +1,5 @@
 package jkgrej;
-
+//Ludvig Sterky
 // This class handles the actual magazine objects. It takes the variables from 
 // Litterature (id, title, isAvailable) and adds the specific elementents such as the issuenumber, 
 // the category, and its release year. As well as this, the class also contains toString, to write all elements,

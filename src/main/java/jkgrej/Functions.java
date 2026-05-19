@@ -18,6 +18,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Collections;
 
+//Ludvig Sterky
+
 // This class handles all the main operations and server communication for the system.
 // It keeps track of the lists for books, magazines, users, and suspensions, working as
 // the bridge between the console and the database. As well as this, the class contains

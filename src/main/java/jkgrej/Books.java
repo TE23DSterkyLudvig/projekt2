@@ -1,5 +1,6 @@
 package jkgrej;
 
+//Ludvig Sterky
 // This class handles the actual book objects. It takes the basic stuff from 
 // Litterature (id, title, isAvailable) and adds the specifics like who wrote it, 
 // the genre, and how many pages it has. As well as this, the class also contains toString, to write all elements,

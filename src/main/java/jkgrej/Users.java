@@ -1,5 +1,5 @@
 package jkgrej;
-
+//Ludvig Sterky
 // This class handles the actual user objects. It takes the basic stuff from 
 // AllUsers (id) and adds the specifics like the user's name and email address. 
 // As well as this, the class also implements the Comparable interface to sort users 

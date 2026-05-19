@@ -1,5 +1,6 @@
 package jkgrej;
 
+//Ludvig Sterky
 // This class serves as the base class for all user types in the system. 
 // It holds the basic stuff that every user shares (the id) so that subclasses 
 // like Users or Suspended can inherit it and add their own specific details. 

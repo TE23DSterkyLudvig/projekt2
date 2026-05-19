@@ -16,6 +16,10 @@ import jkgrej.Users;
 
 import java.lang.reflect.Type;
 
+//Ludvig Sterky
+//This is the main class where the program takes place, it creates a menu where the user is
+//allowed to Read, write, remove, find, add, sort and suspend the users who are suspended.
+// the methods used in this class come from the class Functions which make sure that the program works.
 
 
 public class Main {
